@@ -4,10 +4,10 @@ Specialty: <%= @scientist.specialty %> <br>
 University: <%= @scientist.university %> <br>
 Lab: <%= @scientist.lab.name %>
 </p>
-Experiments: <% @scientist.experiments.each do |experiment| %>
-  <%= experiment.name %>
+Experiments: <% @scientist.scientist_experiments.each do |experiment| %>
+  <%= experiment.experiment.name %>
   <%= form_with url: "/scientists/#{@scientist.id}/scientist_experiments/#{experiment.id}", method: :delete, local: true do |f| %>
-    <%= f.submit "Remove #{experiment.name}" %>
+    <%= f.submit "Remove #{experiment.experiment.name}" %>
   <% end %>
   
 <% end %>

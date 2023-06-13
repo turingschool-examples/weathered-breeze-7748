@@ -14,7 +14,7 @@ RSpec.describe "scientists show page" do
     @science_experiment_2 = ScientistExperiment.create!(scientist: @scientist_2, experiment: @experiment_1)
     @science_experiment_3 = ScientistExperiment.create!(scientist: @scientist_1, experiment: @experiment_2)
     @science_experiment_4 = ScientistExperiment.create!(scientist: @scientist_3, experiment: @experiment_4)
-    @science_experiment_5 = ScientistExperiment.create!(scientist: @scientist_2, experiment: @experiment_1)
+    @science_experiment_5 = ScientistExperiment.create!(scientist: @scientist_2, experiment: @experiment_2)
   end
   it "can display scientist info" do
     visit "/scientists/#{@scientist_1.id}"
@@ -27,7 +27,6 @@ RSpec.describe "scientists show page" do
   it "can remove experiments" do
     visit "/scientists/#{@scientist_1.id}"
     expect(page).to have_content("Experiments: secret project\nproject 2")
-    save_and_open_page
     click_button "Remove secret project"
     expect(current_path).to eq("/scientists/#{@scientist_1.id}")
     expect(page).to have_content("Experiments: project 2")
