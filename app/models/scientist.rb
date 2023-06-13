@@ -11,4 +11,8 @@ class Scientist < ApplicationRecord
   def laboratory_name
     self.lab.name
   end
+
+  def num_exp
+    self.experiments.count
+  end
 end
