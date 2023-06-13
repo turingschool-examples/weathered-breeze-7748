@@ -1,0 +1,5 @@
+<h1>ALL THE EXPERIMENTS!</h1>
+
+<% @experiments.long_running_exp.each do |experiment| %>
+  <h3><%= experiment.name %> - In Progress For <%= experiment.num_months %> Months</h3>
+<% end %>
