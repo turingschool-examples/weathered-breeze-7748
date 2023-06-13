@@ -10,11 +10,10 @@ RSpec.describe 'Scientists Show Page' do
     @scientist3 = Scientist.create!(name: "Bob Barker", specialty: "Price", university: "CU Boulder", lab: @lab1)
     @scientist4 = Scientist.create!(name: "Tom Hanks", specialty: "Love", university: "Alabama", lab: @lab2)
     
-    @experiment1 = Experiment.create!(name: "Mentos and Diet Coke", objective: "Save the Planet", num_months: 10)
-    @experiment2 = Experiment.create!(name: "Baking Soda Volcano", objective: "Educate children", num_months: 4)
-    @experiment3 = Experiment.create!(name: "Project X", objective: "Party", num_months: 6)
-    @experiment4 = Experiment.create!(name: "Wolverine", objective: "Make Claws", num_months: 18)
-    # @experiment5 = Experiment.create!(name: "Science Fair", objective: "Make bubbles", num_months: 8)
+    @experiment1 = Experiment.create!(name: "Mentos and Diet Coke", objective: "Save the Planet", num_months: 420)
+    @experiment2 = Experiment.create!(name: "Baking Soda Volcano", objective: "Educate children", num_months: 69)
+    @experiment3 = Experiment.create!(name: "Project X", objective: "Party", num_months: 5)
+    @experiment4 = Experiment.create!(name: "Wolverine", objective: "Make Claws", num_months: 7)
   
     ScientistExperiment.create!(experiment: @experiment1, scientist: @scientist1)
     ScientistExperiment.create!(experiment: @experiment1, scientist: @scientist2)
@@ -54,10 +53,6 @@ RSpec.describe 'Scientists Show Page' do
 
       visit scientist_path(@scientist1)
       expect(page).to have_content("Experiments: Mentos and Diet Coke")
-    end
-
-    it "should display experiment on other scientists page" do
-
     end
   end
 end

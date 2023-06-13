@@ -1,0 +1,10 @@
+<h1>Experiments Index Page</h1>
+<section id="experiments-over-6-months">
+<h2>Experiments Running More Than 6 Months</h2>
+<ul>
+  <% @long_running_experiments.each do |experiment| %>
+    <li>Experiment: <b><%= experiment.name %></li></b>
+    <li>Months: <b><%= experiment.num_months %></li></b>
+  <% end %>
+</ul>
+
