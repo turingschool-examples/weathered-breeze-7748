@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get "/scientists/:id", to: "scientists#show"
+
+  delete "/scientists/:id/hypotheses", to: "hypotheses#destroy"
 end

@@ -5,5 +5,5 @@
 <p>Scientist University: <%= @scientist.university %></p>
 <p>Scientist Lab: <%= @scientist.lab.name %></p>
 <% @scientist.experiments.each do |experiment| %>
-  <p>Experiment In Progress: <%= experiment.name %></p>
+  <p>Experiment In Progress: <%= experiment.name %> <%= button_to "Remove #{experiment.name} Experiment From Scientist", "/scientists/#{@scientist.id}/hypotheses",  params: {:experiment_id => experiment.id}, method: :delete %></p>
 <% end %>
