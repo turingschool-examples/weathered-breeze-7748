@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get "/scientists/:id", to: "scientists#show"
-  delete "/scientists/:id/scientist_experiments/:id", to: "scientist_experiments#destroy"
+  delete "/scientists/:scientist_id/scientist_experiments/:id", to: "scientist_experiments#destroy"
   get "/experiments", to: "experiments#index"
 end
