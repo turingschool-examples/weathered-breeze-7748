@@ -24,6 +24,7 @@ describe "Scientists show page" do
 
 
     visit "/scientists/#{@scientist1.id}"
+    save_and_open_page
   end
 
 
@@ -49,13 +50,14 @@ describe "Scientists show page" do
     end
 
     it "displays the name of the lab where this scientist works" do
-
+      expect(page).to have_content(@lab1.name)
+      expect(page).to_not have_content(@lab2.name)
     end
 
     it "displays the names of all the experiments this scientist is running" do
-
+      expect(page).to have_content(@experiment1.name)
+      expect(page).to have_content(@experiment5.name)
+      expect(page).to_not have_content(@experiment2.name)
     end
-
-    
   end
 end
