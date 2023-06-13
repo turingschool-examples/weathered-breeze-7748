@@ -24,7 +24,7 @@ describe "Scientists show page" do
 
 
     visit "/scientists/#{@scientist1.id}"
-    save_and_open_page
+    # save_and_open_page
   end
 
 
@@ -59,5 +59,32 @@ describe "Scientists show page" do
       expect(page).to have_content(@experiment5.name)
       expect(page).to_not have_content(@experiment2.name)
     end
+
+    #us 2 User Story 2, Remove an Experiment from a Scientist
+
+    # As a visitor
+    # When I visit a scientist's show page
+    # Then next to each experiment's name, I see a button to remove that experiment from that scientist's work load
+    # When I click that button for one experiment
+    # I'm brought back to the scientist's show page
+    # And I no longer see that experiment's name listed
+    # And when I visit a different scientist's show page that is working on that same experiment,
+    # Then I see that the experiment is still on the other scientist's work load
+
+    it "displays next to each experiment's name a button to remove the experiment from that scientists work load" do
+      expect(page).to have_button("Remove #{@experiment1.name} from #{@scientist1.name} page")
+      expect(page).to have_button("Remove #{@experiment5.name} from #{@scientist1.name} page")
+    end
+
+    it "when click the button for one experiment brought back to the scientist's show page, experiment gone" do
+      click_button("Remove #{@experiment1.name} from #{@scientist1.name} page")
+      save_and_open_page
+      expect(current_path).to eq("/scientists/#{@scientist1.id}")
+      expect(page).to_not have_content(@experiment1.name)
+      expect(page).to_not have_button("Remove #{@experiment1.name} from #{@scientist1.name} page")
+    end
+
   end
+
+
 end

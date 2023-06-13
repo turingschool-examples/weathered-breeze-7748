@@ -8,5 +8,6 @@
 
 
 <% @experiments.each do |ex|   %>
-<p>experiments: <%= ex.name %>
+<p>experiments: <%= ex.name %><li> <%= button_to "Remove #{ex.name} from #{@scientist.name} page", "/scientists/:id/experiments/:id", params: { scientist_id: @scientist.id, experiment_id: ex.id }, method: :delete %> </li>
+</p>
 <% end %>
