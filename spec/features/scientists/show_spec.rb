@@ -76,12 +76,15 @@ describe "Scientists show page" do
       expect(page).to have_button("Remove #{@experiment5.name} from #{@scientist1.name} page")
     end
 
-    it "when click the button for one experiment brought back to the scientist's show page, experiment gone" do
+    it "when click the button for one experiment brought back to the scientist's show page, that experiment gone, other experiment still there  " do
       click_button("Remove #{@experiment1.name} from #{@scientist1.name} page")
       save_and_open_page
       expect(current_path).to eq("/scientists/#{@scientist1.id}")
       expect(page).to_not have_content(@experiment1.name)
       expect(page).to_not have_button("Remove #{@experiment1.name} from #{@scientist1.name} page")
+      
+      
+      expect(page).to have_button("Remove #{@experiment5.name} from #{@scientist1.name} page")
     end
 
   end
