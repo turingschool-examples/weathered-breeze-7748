@@ -5,3 +5,8 @@
 <%= @scientist.university %>
 
 <p><%= @lab.name %></p>
+
+
+<% @experiments.each do |ex|   %>
+<p>experiments: <%= ex.name %>
+<% end %>
