@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Scientist Show Page" do
+RSpec.describe "Experiment Index Page" do
   before :each do
     @lab1 = Lab.create!(name: "Not Pfizer")
     @lab2 = Lab.create!(name: "Dexter's Lab")
@@ -23,35 +23,16 @@ RSpec.describe "Scientist Show Page" do
     @hypothesis7 = Hypothesis.create!(scientist_id: @scientist3.id, experiment_id: @experiment3.id)
     @hypothesis8 = Hypothesis.create!(scientist_id: @scientist4.id, experiment_id: @experiment3.id)
   end
-
-  describe "scientist show page information" do
-    it "shows scientist info with lab and experiment data" do
-      # User Story 1, Scientist Show Page
-      visit "/scientists/#{@scientist1.id}"
-
-      expect(page).to have_content(@scientist1.name)
-      expect(page).to have_content("Scientist Specialty: #{@scientist1.specialty}")
-      expect(page).to have_content("Scientist University: #{@scientist1.university}")
-      expect(page).to have_content("Scientist Lab: #{@lab1.name}")
-      expect(page).to have_content("Experiment In Progress: #{@experiment1.name}")
-      expect(page).to have_content("Experiment In Progress: #{@experiment3.name}")
-    end
-
-    it "removes experiment from scientist" do
-      # User Story 2, Remove an Experiment from a Scientist
-      visit "/scientists/#{@scientist1.id}"
+  
+  describe "Experiment Index Page Information" do
+    it "shows all experiments older than 6 months" do
+      # User Story 3, Experiment Index Page
+      visit "/experiments"
 
       expect(page).to have_content(@experiment1.name)
-      expect(page).to have_content(@experiment3.name)
-      expect(page).to have_button "Remove #{@experiment1.name} Experiment From Scientist"
-      click_button "Remove #{@experiment1.name} Experiment From Scientist"
-
-      expect(current_path).to eq("/scientists/#{@scientist1.id}")
-      expect(page).to have_content(@experiment3.name)
-      expect(page).to_not have_content(@experiment1.name)
-      
-      visit "/scientists/#{@scientist2.id}"
-      expect(page).to have_content(@experiment1.name)
+      expect(page).to have_content(@experiment2.name)
+      expect(page).to_not have_content(@experiment3.name)
+      expect(@experiment1.name).to appear_before(@experiment2.name)
     end
   end
 end
