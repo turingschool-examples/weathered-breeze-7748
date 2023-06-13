@@ -9,7 +9,7 @@ RSpec.describe "scientists show page" do
     @experiment_1 = @scientist_1.experiments.create!(name: "secret project", objective: "classified", num_months: 48)
     @experiment_2 = @scientist_2.experiments.create!(name: "secret project", objective: "classified", num_months: 48)
     @experiment_3 = @scientist_1.experiments.create!(name: "project 2", objective: "make cool things", num_months: 20)
-    @experiment_3 = @scientist_2.experiments.create!(name: "project 2", objective: "make cool things", num_months: 20)
+    @experiment_4 = @scientist_2.experiments.create!(name: "project 2", objective: "make cool things", num_months: 20)
   end
   it "can display scientist info" do
     visit "/scientists/#{@scientist_1.id}"
