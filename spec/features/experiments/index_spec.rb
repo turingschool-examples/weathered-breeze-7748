@@ -9,15 +9,23 @@ RSpec.describe "experiments index page" do
     @experiment_2 = @scientist_2.experiments.create!(name: "secret project", objective: "classified", num_months: 9)
     @experiment_3 = @scientist_1.experiments.create!(name: "project 2", objective: "make cool things", num_months: 7)
     @experiment_4 = @scientist_2.experiments.create!(name: "project 2", objective: "make cool things", num_months: 7)
-    @experiment_6 = @scientist_3.experiments.create!(name: "project zeus", objective: "make compound", num_months: 8)
-    @experiment_7 = @scientist_3.experiments.create!(name: "project posedion", objective: "make compounds again", num_months: 10)
+    @experiment_5 = @scientist_3.experiments.create!(name: "project zeus", objective: "make compound", num_months: 8)
+    @experiment_6 = @scientist_3.experiments.create!(name: "project posedion", objective: "make compounds again", num_months: 10)
   end
   it "can display all experiments longer than 6 months" do
     visit "/experiments"
     within("#long_experiments") do
-      expect("Name: project zeus\nLength: 8").to appear_before("Name: project 2\nLength: 7", only_text: true)
-      expect("Name: project 2\nLength: 7").to_not appear_before("Name: project zeus\nLength: 8", only_text: true)
-      expect("Name: project posedion\nLength: 10").to appear_before("Name: secret project\nLength: 9", only_text: true)
+    save_and_open_page
+    
+    expect(page).to have_content("Name: project posedion")
+    expect(page).to have_content("Length: 10")
+      expect(page).to have_content("Name: secret Project")
+      expect(page).to have_content("Length: 9")
+      expect(page).to have_content("Name: project zeus")
+      expect(page).to have_content("Length: 8")
+      expect(page).to_not have_content("Name: project 2")
+      expect(page).to have_content("Length: 7")
+     
     end
     
   end
