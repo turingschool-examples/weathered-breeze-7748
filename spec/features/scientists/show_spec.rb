@@ -26,6 +26,7 @@ RSpec.describe "Scientist's Show Page" do
 
   describe "scientist show page information" do
     it "shows scientist info with lab and experiment data" do
+      # User Story 1, Scientist Show Page
       visit "/scientists/#{@scientist1.id}"
 
       expect(page).to have_content(@scientist1.name)
@@ -34,6 +35,23 @@ RSpec.describe "Scientist's Show Page" do
       expect(page).to have_content("Scientist Lab: #{@lab1.name}")
       expect(page).to have_content("Experiment In Progress: #{@experiment1.name}")
       expect(page).to have_content("Experiment In Progress: #{@experiment3.name}")
+    end
+
+    it "removes experiment from scientist" do
+      # User Story 2, Remove an Experiment from a Scientist
+      visit "/scientists/#{@scientist1.id}"
+
+      expect(page).to have_content(@experiment1.name)
+      expect(page).to have_content(@experiment3.name)
+      expect(page).to have_button "Remove #{@experiment1.name} Experiment From Scientist"
+      click_button "Remove #{@experiment1.name} Experiment From Scientist"
+
+      expect(current_path).to eq("/scientists/#{@scientist1.id}")
+      expect(page).to have_content(@experiment3.name)
+      expect(page).to_not have_content(@experiment1.name)
+      
+      visit "/scientists/#{@scientist2.id}"
+      expect(page).to have_content(@experiment1.name)
     end
   end
 end
