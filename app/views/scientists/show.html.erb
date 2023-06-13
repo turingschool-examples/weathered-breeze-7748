@@ -1,0 +1,19 @@
+<h1>Scientist Show Page</h1>
+<p>Name: <b><%= @scientist.name %></b></p>
+<p>Specialty: <b><%= @scientist.specialty %></b></p>
+<p>University: <b><%= @scientist.university %></b></p>
+<p>Lab: <b><%= @scientist.lab.name %></b></p>
+<section id=experiments>
+<% @scientist.experiments.each do |experiment| %>
+    <p>Experiments: <%= experiment.name %>
+      <%= form_with url: scientist_experiment_path(@scientist, experiment), method: "delete", local: true do |f| %></p><br>
+        <%= f.hidden_field :scientist_id, value: @scientist.id %>
+        <%= f.hidden_field :experiment_id, value: experiment.id %>
+
+        <%= f.submit "Remove Experiment" %>
+      <% end %>
+    <% end %>
+</section>
+
+
+  
