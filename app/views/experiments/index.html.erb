@@ -1,0 +1,9 @@
+<h1>All Experiments More than 6 months long</h1>
+<section id = "long_experiments"
+  <% @experiments.uniq.each do |experiment| %>
+    <p>
+    Name: <%= experiment.name %> <br>
+    Length: <%= experiment.num_months %> <br>
+    </p>
+  <% end %>
+</div>
