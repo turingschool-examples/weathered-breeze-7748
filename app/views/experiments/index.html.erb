@@ -1,0 +1,10 @@
+<body>
+<h1> Experiments over 6 Months</h1>
+<h3> Age before Beauty </h3>
+  <% @experiments.order_old.each do |experiment| %>
+      <div id="experiment-<%= experiment.id %>">
+        Experiemnt Name: <%= experiment.name %> - Months: <%= experiment.num_months %>
+      </div>
+    </br>
+    <% end %>
+</body>
