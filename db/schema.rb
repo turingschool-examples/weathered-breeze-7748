@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_014930) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_13_164211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "experiments", force: :cascade do |t|
+    t.string "name"
+    t.text "objective"
+    t.integer "num_months"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "experiments_scientists", id: false, force: :cascade do |t|
+    t.bigint "experiment_id", null: false
+    t.bigint "scientist_id", null: false
+    t.index ["experiment_id", "scientist_id"], name: "index_experiments_scientists_on_experiment_id_and_scientist_id"
+    t.index ["scientist_id", "experiment_id"], name: "index_experiments_scientists_on_scientist_id_and_experiment_id"
+  end
 
   create_table "labs", force: :cascade do |t|
     t.string "name"
