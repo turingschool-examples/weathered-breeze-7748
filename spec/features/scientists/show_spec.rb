@@ -1,11 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
-@lab_1 = Lab.create!(name: "laboratory1")
+require "rails_helper"
+
+RSpec.describe "scientists show page" do
+  before(:each) do 
+    @lab_1 = Lab.create!(name: "laboratory1")
     @scientist_1 = @lab_1.scientists.create!(name: "smarty", specialty: "pharma", university: "UOR")
     @scientist_2 = @lab_1.scientists.create!(name: "genius", specialty: "physics", university: "ROR")
     @scientist_3 = @lab_1.scientists.create!(name: "smarty pants", specialty: "chemistry", university: "FOT")
@@ -17,4 +14,25 @@
     @science_experiment_2 = ScientistExperiment.create!(scientist: @scientist_2, experiment: @experiment_1)
     @science_experiment_3 = ScientistExperiment.create!(scientist: @scientist_1, experiment: @experiment_2)
     @science_experiment_4 = ScientistExperiment.create!(scientist: @scientist_3, experiment: @experiment_4)
-    @science_experiment_5 = ScientistExperiment.create!(scientist: @scientist_2, experiment: @experiment_1)
+    @science_experiment_5 = ScientistExperiment.create!(scientist: @scientist_2, experiment: @experiment_2)
+  end
+  it "can display scientist info" do
+    visit "/scientists/#{@scientist_1.id}"
+    expect(page).to have_content("Name: smarty")
+    expect(page).to have_content("Specialty: pharma")
+    expect(page).to have_content("University: UOR")
+    expect(page).to have_content("Lab: laboratory1")
+    expect(page).to have_content("Experiments: secret project\nproject 2")
+  end
+  it "can remove experiments" do
+    visit "/scientists/#{@scientist_1.id}"
+    expect(page).to have_content("Experiments: secret project\nproject 2")
+    click_button "Remove secret project"
+    expect(current_path).to eq("/scientists/#{@scientist_1.id}")
+    expect(page).to have_content("Experiments: project 2")
+    expect(page).to_not have_content("secret project")
+    visit "/scientists/#{@scientist_2.id}"
+    expect(page).to have_content("Experiments: secret project\nproject 2")
+
+  end
+end
