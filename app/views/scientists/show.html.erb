@@ -8,7 +8,7 @@
 <h2> List of Work </h2>
   <% @scientist.experiment_list.each do |experiment| %>
       <div id="experiment-<%= experiment.name %>">
-        Experiment: <%= experiment.name %> - Objective: <%= experiment.objective %>
+        Experiment: <%= experiment.name %> - Objective: <%= experiment.objective %> - <%= button_to "Remove #{experiment.name}", scientist_experiment_path(@scientist, experiment), method: :delete %>
       </div>
       </br>
   <% end %>

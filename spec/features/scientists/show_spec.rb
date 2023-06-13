@@ -16,15 +16,25 @@ RSpec.describe "Scientist Show Page" do
 
     @se1 = ScientistExperiment.create(scientist_id: @scientist1.id, experiment_id: @exp1.id)
     @se2 = ScientistExperiment.create(scientist_id: @scientist2.id, experiment_id: @exp2.id)
+    @se3 = ScientistExperiment.create(scientist_id: @scientist2.id, experiment_id: @exp1.id)
 
   end
   it "shows all scientists info: name, specialty, university." do
     visit scientist_path(@scientist1)
-    save_and_open_page
     expect(page).to have_content(@scientist1.name)
     expect(page).to have_content(@scientist1.specialty)
     expect(page).to have_content(@scientist1.university)
     expect(page).to have_content(@lab1.name)
+    expect(page).to have_content(@exp1.name)
+  end
+  it "can delete experiment from scientist" do
+    visit scientist_path(@scientist1)
+    expect(page).to have_content(@exp1.name)
+    expect(page).to have_button("Remove #{@exp1.name}")
+    click_button "Remove #{@exp1.name}"
+    expect(current_path).to eq(scientist_path(@scientist1))
+    expect(page).to_not have_content(@exp1.name)
+    visit scientist_path(@scientist2)
     expect(page).to have_content(@exp1.name)
   end
 end
