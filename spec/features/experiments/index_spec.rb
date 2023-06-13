@@ -15,8 +15,8 @@ RSpec.describe "experiments index page" do
   it "can display all experiments longer than 6 months" do
     visit "/experiments"
     within("#long_experiments") do
-      expect("Name: project 2\nLength: 7").to_not appear_before("Name: project zeus\nLength: 8", only_text: true)
       expect("Name: project zeus\nLength: 8").to appear_before("Name: project 2\nLength: 7", only_text: true)
+      expect("Name: project 2\nLength: 7").to_not appear_before("Name: project zeus\nLength: 8", only_text: true)
       expect("Name: project posedion\nLength: 10").to appear_before("Name: secret project\nLength: 9", only_text: true)
     end
     
