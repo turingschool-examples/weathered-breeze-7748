@@ -17,17 +17,17 @@ RSpec.describe "scientists show page" do
     expect(page).to have_content("Specialty: pharma")
     expect(page).to have_content("University: UOR")
     expect(page).to have_content("Lab: laboratory1")
-    expect(page).to have_content("Experiments: secret project project 2")
+    expect(page).to have_content("Experiments: secret project\nproject 2")
   end
   it "can remove experiments" do
     visit "/scientists/#{@scientist_1.id}"
-    expect(page).to have_content("Experiments: secret project project 2")
+    expect(page).to have_content("Experiments: secret project\nproject 2")
     click_button "Remove project 2"
     expect(current_path).to eq("/scientists/#{@scientist_1.id}")
     expect(page).to have_content("Experiments: secret project")
     expect(page).to_not have_content("project 2")
     visit "/scientists/#{@scientist_2.id}"
-    expect(page).to have_content("Experiments: project 2")
+    expect(page).to have_content("Experiments: secret project\nproject 2")
 
   end
 end

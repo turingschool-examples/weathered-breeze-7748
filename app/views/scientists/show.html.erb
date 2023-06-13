@@ -6,7 +6,8 @@ Lab: <%= @scientist.lab.name %>
 </p>
 Experiments: <% @scientist.experiments.each do |experiment| %>
   <%= experiment.name %>
-  <%= button_to "/scientists/#{@scientist.id}/scientist_experiments", method: :delete, local: true do |f| %>
+  <%= form_with url: "/scientists/#{@scientist.id}/scientist_experiments/#{experiment.id}", method: :delete, local: true do |f| %>
+    <%= f.submit "Remove #{experiment.name}" %>
+  <% end %>
   
-<% end %>
 <% end %>
