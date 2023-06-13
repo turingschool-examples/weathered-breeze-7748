@@ -1,12 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Scientist do
-  describe "relationships" do
-    it {should belong_to :lab}
-    it {should have_many(:scientist_experiments)}
-    it {should have_many(:experiments).through(:scientist_experiments)}
-  end
-
+RSpec.describe "Scientist Show Page" do
   before(:each) do
     @lab1 = Lab.create!(name: "Kooky")
     @lab2 = Lab.create!(name: "Lame")
@@ -22,13 +16,15 @@ RSpec.describe Scientist do
 
     @se1 = ScientistExperiment.create(scientist_id: @scientist1.id, experiment_id: @exp1.id)
     @se2 = ScientistExperiment.create(scientist_id: @scientist2.id, experiment_id: @exp2.id)
-  end
-  it "can find the lab it works for" do
-    expect(@scientist1.experiment_list).to eq([@exp1])
-  end
 
-  it "can find its experiments" do
-    expect(@scientist1.laboratory_name).to eq(@lab1.name)
+  end
+  it "shows all scientists info: name, specialty, university." do
+    visit scientist_path(@scientist1)
+    save_and_open_page
+    expect(page).to have_content(@scientist1.name)
+    expect(page).to have_content(@scientist1.specialty)
+    expect(page).to have_content(@scientist1.university)
+    expect(page).to have_content(@lab1.name)
+    expect(page).to have_content(@exp1.name)
   end
 end
-
